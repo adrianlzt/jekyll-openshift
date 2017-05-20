@@ -7,6 +7,10 @@ from wsgiref import simple_server
 FILE="/tmp/web.md" # coger de venv
 
 class EventReceiver(object):
+    def on_get(self, req, resp):
+        resp.status = falcon.HTTP_200
+        resp.body = "ok"
+
     def on_post(self, req, resp):
         resp.status = falcon.HTTP_200
         resp.content_type = 'text/plain'
