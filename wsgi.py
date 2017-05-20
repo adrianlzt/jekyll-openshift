@@ -1,10 +1,11 @@
 #!/usr/bin/env python
 
 import falcon
+import os
 from datetime import datetime
 from wsgiref import simple_server
 
-FILE="/tmp/web.md" # coger de venv
+FILE="/tmp/app/web.md" # coger de venv
 
 class EventReceiver(object):
     def on_get(self, req, resp):
@@ -14,6 +15,10 @@ class EventReceiver(object):
     def on_post(self, req, resp):
         resp.status = falcon.HTTP_200
         resp.content_type = 'text/plain'
+
+        if not os.path.exists("/tmp/app"):
+            os.mkdir("/tmp/app")
+
         body = str(req.stream.read())
         with open(FILE, "a") as fd:
             fd.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S")+" "+body+"\n")
