@@ -10,7 +10,7 @@ FILE="/tmp/app/web.md" # coger de venv
 class EventReceiver(object):
     def on_get(self, req, resp):
         resp.status = falcon.HTTP_200
-        resp.body = "ok"
+        resp.body = os.getenv("OPENSHIFT_BUILD_NAME")
 
     def on_post(self, req, resp):
         resp.status = falcon.HTTP_200
