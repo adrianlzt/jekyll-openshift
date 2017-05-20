@@ -5,7 +5,7 @@ import json
 from datetime import datetime
 from wsgiref import simple_server
 
-FILE="/home/adrian/Documentos/TD-Soporte/dsn/openshift/jekyll_en_opensjhift/web.md"
+FILE="/tmp/web.md" # coger de venv
 
 class EventReceiver(object):
     def on_post(self, req, resp):
@@ -13,7 +13,7 @@ class EventReceiver(object):
         resp.content_type = 'text/plain'
         body = req.stream.read()
         body_json = json.loads(body)
-        with open("web.md", "a") as fd:
+        with open(FILE, "a") as fd:
             fd.write(datetime.now().strftime("%Y-%m-%d %H:%M:%S")+" "+body_json["clave"]+"\n")
         resp.body = "Informacion guardada"
 
